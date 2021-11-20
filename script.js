@@ -19,6 +19,12 @@ function showSuccess(input) {
   const small = formControl.querySelector("small");
 }
 
+function validateEmail(email) {
+  var regularExpression =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regularExpression.test(String(email).toLowerCase());
+}
+
 // Event listeners
 
 form.addEventListener("submit", function (e) {
@@ -34,6 +40,8 @@ form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (email.value === "") {
     showError(email, "Email is required");
+  } else if (!validateEmail(email.value)) {
+    showError(email, "Email address is not valid");
   } else {
     showSuccess(email);
   }
